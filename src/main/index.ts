@@ -16,6 +16,11 @@ function createWindow(): void {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
     },
+    titleBarStyle: 'hiddenInset',
+    trafficLightPosition: {
+      x: 20,
+      y: 20,
+    },
   });
 
   mainWindow.on('ready-to-show', () => {
