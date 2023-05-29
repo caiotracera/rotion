@@ -1,5 +1,14 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { ElectronAPI, electronAPI } from '@electron-toolkit/preload';
+import { IPC } from '@shared/constants/ipc';
+import {
+  CreateDocumentResponse,
+  FetchAllDocumentsResponse,
+  FetchDocumentRequest,
+  FetchDocumentResponse,
+  SaveDocumentRequest,
+} from '@shared/types/ipc';
+import { DeleteDocumentRequest } from '@shared/types/ipc';
 
 declare global {
   interface Window {
@@ -10,8 +19,24 @@ declare global {
 
 // Custom APIs for renderer
 const api = {
-  fetchDocuments(): Promise<Array<{ id: string; title: string }>> {
-    return ipcRenderer.invoke('fetch-documents');
+  fetchDocuments(): Promise<FetchAllDocumentsResponse> {
+    return ipcRenderer.invoke(IPC.DOCUMENTS.FETCH_ALL);
+  },
+
+  fetchDocument(request: FetchDocumentRequest): Promise<FetchDocumentResponse> {
+    return ipcRenderer.invoke(IPC.DOCUMENTS.FETCH, request);
+  },
+
+  createDocument(): Promise<CreateDocumentResponse> {
+    return ipcRenderer.invoke(IPC.DOCUMENTS.CREATE);
+  },
+
+  saveDocument(request: SaveDocumentRequest): Promise<void> {
+    return ipcRenderer.invoke(IPC.DOCUMENTS.SAVE, request);
+  },
+
+  deleteDocument(request: DeleteDocumentRequest): Promise<void> {
+    return ipcRenderer.invoke(IPC.DOCUMENTS.DELETE, request);
   },
 };
 

@@ -6,6 +6,7 @@ import { createFileRoute, createURLRoute } from 'electron-router-dom';
 import icon from '../../resources/icon.png';
 
 import './ipc';
+import './store';
 
 function createWindow(): void {
   // Create the browser window.
