@@ -7,6 +7,7 @@ import icon from '../../resources/icon.png';
 
 import './ipc';
 import './store';
+import { createTray } from './tray';
 
 function createWindow(): void {
   // Create the browser window.
@@ -27,6 +28,8 @@ function createWindow(): void {
       y: 20,
     },
   });
+
+  createTray(mainWindow);
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
