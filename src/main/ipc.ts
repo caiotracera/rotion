@@ -54,10 +54,10 @@ ipcMain.handle(
 
 ipcMain.handle(
   IPC.DOCUMENTS.SAVE,
-  async (_, { id }: SaveDocumentRequest): Promise<void> => {
+  async (_, { id, title, content }: SaveDocumentRequest): Promise<void> => {
     const document = store.get(`documents.${id}`) as Document;
 
-    store.set(`documents.${id}`, document);
+    store.set(`documents.${id}`, { ...document, title, content });
   },
 );
 
